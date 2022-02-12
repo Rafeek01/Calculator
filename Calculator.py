@@ -1,11 +1,44 @@
 from tkinter import *
+import sys
 
 window=Tk() #this will create the new window
 window.configure(background="#847ee0")
 window.geometry("312x364") #this wil give the size of the window
 window.resizable(0,0) #this will prevent window from resizing
 window.title("Calculator") #this wioll give name to that window calculator
+#--------------------addding functions to the buttons created------------
+#btn_click function
 
+def btn_click(key):
+	global expresion
+	print(len(expresion))
+	expresion = expresion+str(key)
+	input_text.set(expresion)
+def bt_clear():
+	global expresion
+	expresion = ""
+	input_text.set(expresion)
+
+def bt_qual():
+	global expresion
+	try:
+		result=str(eval(expresion))
+		input_text.set(result)
+		expresion=result
+	except SyntaxError as SEr:
+		input_text.set("Invalid input :)")
+		print(SEr)
+		expresion=""
+	except ZeroDivisionError as ZEr:
+		input_text.set("Undefined :)")
+		print(ZEr)
+		expresion=""
+
+
+
+expresion=""
+print(sys.getsizeof(expresion))
+print(len(expresion))
 #take text from input field
 input_text=StringVar()
 #------creating fram button inside the window-----------
@@ -18,11 +51,14 @@ input_frame.pack(side=TOP,pady=5)
 input_field= Entry(input_frame,font=('arial',20,'bold'),textvariable=input_text,bg="#eee",bd=0,justify=RIGHT,width=18)
 input_field.grid(row=0,column=0)
 input_field.pack(ipady=10)
+
+
 #__________________________________
 #let us creat a frame for buttons(numbers/operator/equalsymble
 
 btn_frame=Frame(window,width=312,height=272.5,bg="#12c69c")
 btn_frame.pack()
+
 #adding button to the frame
 #first row
 clear=Button(btn_frame,text="C",fg="black",width=30,height=3,bd=0,bg="#fff",cursor="hand2",command=lambda:bt_clear())
@@ -61,16 +97,16 @@ two=Button(btn_frame,text="2",width=9,height=3,bg="#eee",bd=0,cursor="hand2",com
 two.grid(row=3,column=1,padx=1,pady=1)
 three=Button(btn_frame,text="3",width=9,height=3,bg="#eee",bd=0,cursor="hand2",command=lambda :btn_click(3))
 three.grid(row=3,column=2,padx=1,pady=1)
-add=Button(btn_frame,text="+",width=9,height=3,bg="#fff",bd=0,cursor="hand2",command=lambda :btn_click(4))
+add=Button(btn_frame,text="+",width=9,height=3,bg="#fff",bd=0,cursor="hand2",command=lambda :btn_click("+"))
 add.grid(row=3,column=3,padx=1,pady=1)
 
 #fifth row
 
-zero=Button(btn_frame,text="0",width=18,height=3,bg="#eee",bd=0,fg="black",cursor="hand2",command=lambda: btn_click(0))
+zero=Button(btn_frame,text="0",width=20,height=3,bg="#eee",bd=0,fg="black",cursor="hand2",command=lambda: btn_click(0))
 zero.grid(row=4,column=0,padx=1,pady=1,columnspan=2)
 point=Button(btn_frame,text=".",width=9,height=3,bg="#fff",bd=0,fg="black",cursor="hand2",command=lambda: btn_click("."))
 point.grid(row=4,column=2,padx=1,pady=1)
-equal=Button(btn_frame,text="=",width=9,height=3,bg="#fff",bd=0,fg="black",cursor="hand2",command=lambda: btn_click("="))
+equal=Button(btn_frame,text="=",width=9,height=3,bg="#fff",bd=0,fg="black",cursor="hand2",command=lambda: bt_qual())
 equal.grid(row=4,column=3,padx=1,pady=1)
 
 
