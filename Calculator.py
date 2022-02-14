@@ -3,7 +3,7 @@ import sys
 
 window=Tk() #this will create the new window
 window.configure(background="#E3EBEA")
-window.geometry("312x390") #this wil give the size of the window
+window.geometry("312x440") #this wil give the size of the window
 window.resizable(0,0) #this will prevent window from resizing
 window.title("Calculator") #this wioll give name to that window calculator
 #--------------------addding functions to the buttons created------------
@@ -12,9 +12,22 @@ window.title("Calculator") #this wioll give name to that window calculator
 def btn_click(key):
 	Terror.delete('1.0', END)
 	global expresion
-	print(len(expresion))
 	expresion = expresion+str(key)
 	input_text.set(expresion)
+
+'''def btn_delete():
+	global expresion
+	expresion.delete(0, END)'''
+def btn_delete():
+	global expresion
+	expresion = expresion[0:len(expresion) -1]
+	input_text.set(expresion)
+
+def btn_delete():
+	global expresion
+	expresion = expresion[:-1]
+	input_text.set(expresion)
+
 def bt_clear():
 	Terror.delete('1.0', END)
 	global expresion
@@ -25,7 +38,7 @@ def bt_qual():
 	global expresion
 	try:
 		Terror.delete('1.0', END)
-		result=str(eval(expresion))
+		result=str(round(eval(expresion),5))
 		input_text.set(result)
 		expresion=result
 	except SyntaxError as SEr:
@@ -117,8 +130,17 @@ zero=Button(btn_frame,text="0",width=20,height=3,bg="#4F4860",fg="#E3EBEA",bd=0,
 zero.grid(row=4,column=0,padx=1,pady=1,columnspan=2)
 point=Button(btn_frame,text=".",width=9,height=3,bg="#6A63A0",bd=0,fg="#E3EBEA",cursor="hand2",command=lambda: btn_click("."))
 point.grid(row=4,column=2,padx=1,pady=1)
-equal=Button(btn_frame,text="=",width=9,height=3,bg="#6A63A0",bd=0,fg="#E3EBEA",cursor="hand2",command=lambda: bt_qual())
+equal=Button(btn_frame,text="=",width=9,height=3,bg="#a0637a",bd=0,fg="#E3EBEA",cursor="hand2",command=lambda: bt_qual())
 equal.grid(row=4,column=3,padx=1,pady=1)
+
+#sixth row
+photo = PhotoImage(file = "backspace.png")
+delete=Button(btn_frame,width=145,height=50,bg="#6A63A0",fg="#E3EBEA",bd=0,cursor="hand2",command=lambda: btn_delete(),image=photo)
+delete.grid(row=5,column=2,padx=1,pady=1,columnspan=2)
+openb=Button(btn_frame,text="(",width=9,height=3,bg="#6A63A0",bd=0,fg="#E3EBEA",cursor="hand2",command=lambda: btn_click("("))
+openb.grid(row=5,column=0,padx=1,pady=1)
+closeb=Button(btn_frame,text=")",width=9,height=3,bg="#6A63A0",bd=0,fg="#E3EBEA",cursor="hand2",command=lambda: btn_click(")"))
+closeb.grid(row=5,column=1,padx=1,pady=1)
 
 
 window.mainloop()
