@@ -65,11 +65,11 @@ input_text=StringVar()
 
 #------creating frame for input values-------
 
-input_frame=Frame(window,width=300,height=50,borderwidth=3,relief="sunken", highlightbackground="white",highlightcolor="blue",highlightthickness=5)
+input_frame=Frame(window,width=300,height=50,borderwidth=3,relief="sunken", highlightbackground="white",highlightcolor="white",highlightthickness=5)
 input_frame.pack(side=TOP,pady=5)
 
 #creating input field inside frame
-input_field= Entry(input_frame,font=('arial',20,'bold'),textvariable=input_text,bg="#eee",bd=0,justify=RIGHT,width=18,state=DISABLED)
+input_field= Entry(input_frame,font=('arial',20,'bold'),textvariable=input_text,bg="#eee",bd=0,justify=RIGHT,width=18)
 input_field.grid(row=0,column=0)
 input_field.pack(ipady=10)
 #-------------------------------------
