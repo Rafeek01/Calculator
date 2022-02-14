@@ -11,9 +11,15 @@ window.title("Calculator") #this wioll give name to that window calculator
 
 def btn_click(key):
 	Terror.delete('1.0', END)
-	global expresion
-	expresion = expresion+str(key)
-	input_text.set(expresion)
+	global expresion  
+	if len(expresion)<=15:
+		print(len(expresion))
+		expresion = expresion+str(key)
+		input_text.set(expresion)
+	else:
+		input_text.set(expresion)
+		Terror.insert(END,"Limit crossed ")
+
 
 '''def btn_delete():
 	global expresion
@@ -24,6 +30,7 @@ def btn_delete():
 	input_text.set(expresion)
 
 def btn_delete():
+	Terror.delete('1.0', END)
 	global expresion
 	expresion = expresion[:-1]
 	input_text.set(expresion)
@@ -52,8 +59,6 @@ def bt_qual():
 
 
 expresion=""
-print(sys.getsizeof(expresion))
-print(len(expresion))
 #take text from input field
 input_text=StringVar()
 
